@@ -9,6 +9,24 @@
 
 require_once ('Mail.php');
 
+// Whitelisted origins
+$ALLOWED_ORIGINS = array(
+    "YOUR_DOMAIN_NAMES_HERE"
+);
+
+// Get the origin from the server header
+$origin = $_SERVER["HTTP_ORIGIN"];
+
+// If origin is not set on the request header, die
+if (!isset($origin)) {
+    die("Authentication failed.");
+}
+
+// Check that the origin is allowed
+if (!in_array($origin, $ALLOWED_ORIGINS)) {
+    die("Authentication failed.");
+}
+
 // Basic mail info
 $from = "You <you@yourmail.com>";
 $to = "You <you@yourmail.com>";
